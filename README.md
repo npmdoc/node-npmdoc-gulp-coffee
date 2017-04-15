@@ -1,11 +1,13 @@
 # api documentation for  [gulp-coffee (v2.3.4)](http://github.com/contra/gulp-coffee)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-coffee.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-coffee) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-coffee.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-coffee)
 #### Compile CoffeeScript files
 
-[![NPM](https://nodei.co/npm/gulp-coffee.png?downloads=true)](https://www.npmjs.com/package/gulp-coffee)
+[![NPM](https://nodei.co/npm/gulp-coffee.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/gulp-coffee)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-coffee/build/screen-capture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-gulp-coffee_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-coffee/build..beta..travis-ci.org/apidoc.html)
+[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-coffee/build/screenCapture.buildCi.browser.apidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-coffee/build/apidoc.html)
 
-![package-listing](https://npmdoc.github.io/node-npmdoc-gulp-coffee/build/screen-capture.npmPackageListing.svg)
+![npmPackageListing](https://npmdoc.github.io/node-npmdoc-gulp-coffee/build/screenCapture.npmPackageListing.svg)
+
+![npmPackageDependencyTree](https://npmdoc.github.io/node-npmdoc-gulp-coffee/build/screenCapture.npmPackageDependencyTree.svg)
 
 
 
@@ -16,7 +18,6 @@
 {
     "author": {
         "name": "Contra",
-        "email": "yo@contra.io",
         "url": "http://contra.io/"
     },
     "bugs": {
@@ -52,17 +53,14 @@
     "main": "./index.js",
     "maintainers": [
         {
-            "name": "contra",
-            "email": "contra@wearefractal.com"
+            "name": "contra"
         },
         {
-            "name": "fractal",
-            "email": "contact@wearefractal.com"
+            "name": "fractal"
         }
     ],
     "name": "gulp-coffee",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git://github.com/contra/gulp-coffee.git"
@@ -79,10 +77,94 @@
 # <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
 
 #### [module gulp-coffee](#apidoc.module.gulp-coffee)
+1.  [function <span class="apidocSignatureSpan"></span>gulp-coffee (opt)](#apidoc.element.gulp-coffee.gulp-coffee)
+1.  [function <span class="apidocSignatureSpan">gulp-coffee.</span>toString ()](#apidoc.element.gulp-coffee.toString)
 
 
 
 # <a name="apidoc.module.gulp-coffee"></a>[module gulp-coffee](#apidoc.module.gulp-coffee)
+
+#### <a name="apidoc.element.gulp-coffee.gulp-coffee"></a>[function <span class="apidocSignatureSpan"></span>gulp-coffee (opt)](#apidoc.element.gulp-coffee.gulp-coffee)
+- description and source-code
+```javascript
+gulp-coffee = function (opt) {
+  function replaceExtension(path) {
+    path = path.replace(/\.coffee\.md$/, '.litcoffee');
+    return gutil.replaceExtension(path, '.js');
+  }
+
+  function transform(file, enc, cb) {
+    if (file.isNull()) return cb(null, file);
+    if (file.isStream()) return cb(new PluginError('gulp-coffee', 'Streaming not supported'));
+
+    var data;
+    var str = file.contents.toString('utf8');
+    var dest = replaceExtension(file.path);
+
+    var options = merge({
+      bare: false,
+      coffee: require('coffee-script'),
+      header: false,
+      sourceMap: !!file.sourceMap,
+      sourceRoot: false,
+      literate: /\.(litcoffee|coffee\.md)$/.test(file.path),
+      filename: file.path,
+      sourceFiles: [file.relative],
+      generatedFile: replaceExtension(file.relative)
+    }, opt);
+
+    try {
+      data = options.coffee.compile(str, options);
+    } catch (err) {
+      return cb(new PluginError('gulp-coffee', err));
+    }
+
+    if (data && data.v3SourceMap && file.sourceMap) {
+      applySourceMap(file, data.v3SourceMap);
+      file.contents = new Buffer(data.js);
+    } else {
+      file.contents = new Buffer(data);
+    }
+
+    file.path = dest;
+    cb(null, file);
+  }
+
+  return through.obj(transform);
+}
+```
+- example usage
+```shell
+n/a
+```
+
+#### <a name="apidoc.element.gulp-coffee.toString"></a>[function <span class="apidocSignatureSpan">gulp-coffee.</span>toString ()](#apidoc.element.gulp-coffee.toString)
+- description and source-code
+```javascript
+toString = function () {
+    return toString;
+}
+```
+- example usage
+```shell
+...
+  }
+
+  function transform(file, enc, cb) {
+if (file.isNull()) return cb(null, file);
+if (file.isStream()) return cb(new PluginError('gulp-coffee', 'Streaming not supported'));
+
+var data;
+var str = file.contents.toString('utf8');
+var dest = replaceExtension(file.path);
+
+var options = merge({
+  bare: false,
+  coffee: require('coffee-script'),
+  header: false,
+  sourceMap: !!file.sourceMap,
+...
+```
 
 
 
