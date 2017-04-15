@@ -61,12 +61,118 @@
 
     <li class="apidocModuleLi"><a href="#apidoc.module.gulp-coffee">module gulp-coffee</a><ol>
 
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-coffee.gulp-coffee">
+            function <span class="apidocSignatureSpan"></span>gulp-coffee
+            <span class="apidocSignatureSpan">(opt)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-coffee.toString">
+            function <span class="apidocSignatureSpan">gulp-coffee.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.gulp-coffee" id="apidoc.module.gulp-coffee">module gulp-coffee</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-coffee.gulp-coffee" id="apidoc.element.gulp-coffee.gulp-coffee">
+        function <span class="apidocSignatureSpan"></span>gulp-coffee
+        <span class="apidocSignatureSpan">(opt)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gulp-coffee = function (opt) {
+  function replaceExtension(path) {
+    path = path.replace(/\.coffee\.md$/, &#x27;.litcoffee&#x27;);
+    return gutil.replaceExtension(path, &#x27;.js&#x27;);
+  }
+
+  function transform(file, enc, cb) {
+    if (file.isNull()) return cb(null, file);
+    if (file.isStream()) return cb(new PluginError(&#x27;gulp-coffee&#x27;, &#x27;Streaming not supported&#x27;));
+
+    var data;
+    var str = file.contents.toString(&#x27;utf8&#x27;);
+    var dest = replaceExtension(file.path);
+
+    var options = merge({
+      bare: false,
+      coffee: require(&#x27;coffee-script&#x27;),
+      header: false,
+      sourceMap: !!file.sourceMap,
+      sourceRoot: false,
+      literate: /\.(litcoffee|coffee\.md)$/.test(file.path),
+      filename: file.path,
+      sourceFiles: [file.relative],
+      generatedFile: replaceExtension(file.relative)
+    }, opt);
+
+    try {
+      data = options.coffee.compile(str, options);
+    } catch (err) {
+      return cb(new PluginError(&#x27;gulp-coffee&#x27;, err));
+    }
+
+    if (data &#x26;&#x26; data.v3SourceMap &#x26;&#x26; file.sourceMap) {
+      applySourceMap(file, data.v3SourceMap);
+      file.contents = new Buffer(data.js);
+    } else {
+      file.contents = new Buffer(data);
+    }
+
+    file.path = dest;
+    cb(null, file);
+  }
+
+  return through.obj(transform);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-coffee.toString" id="apidoc.element.gulp-coffee.toString">
+        function <span class="apidocSignatureSpan">gulp-coffee.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return toString;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  }
+
+  function transform(file, enc, cb) {
+if (file.isNull()) return cb(null, file);
+if (file.isStream()) return cb(new PluginError(&#x27;gulp-coffee&#x27;, &#x27;Streaming not supported&#x27;));
+
+var data;
+var str = file.contents.<span class="apidocCodeKeywordSpan">toString</span>(&#x27;utf8&#x27;);
+var dest = replaceExtension(file.path);
+
+var options = merge({
+  bare: false,
+  coffee: require(&#x27;coffee-script&#x27;),
+  header: false,
+  sourceMap: !!file.sourceMap,
+...</pre></li>
+    </ul>
+
 
 </div>
 
