@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="http://github.com/contra/gulp-coffee"
-
-    >gulp-coffee (v2.3.4)</a>
+    <a href="http://github.com/contra/gulp-coffee">gulp-coffee (v2.3.4)</a>
 </h1>
 <h4>Compile CoffeeScript files</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.gulp-coffee">module gulp-coffee</a><ol>
 
@@ -109,21 +102,21 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">gulp-coffee = function (opt) {
   function replaceExtension(path) {
-    path = path.replace(/\.coffee\.md$/, &#x27;.litcoffee&#x27;);
-    return gutil.replaceExtension(path, &#x27;.js&#x27;);
+    path = path.replace(/\.coffee\.md$/, '.litcoffee');
+    return gutil.replaceExtension(path, '.js');
   }
 
   function transform(file, enc, cb) {
     if (file.isNull()) return cb(null, file);
-    if (file.isStream()) return cb(new PluginError(&#x27;gulp-coffee&#x27;, &#x27;Streaming not supported&#x27;));
+    if (file.isStream()) return cb(new PluginError('gulp-coffee', 'Streaming not supported'));
 
     var data;
-    var str = file.contents.toString(&#x27;utf8&#x27;);
+    var str = file.contents.toString('utf8');
     var dest = replaceExtension(file.path);
 
     var options = merge({
       bare: false,
-      coffee: require(&#x27;coffee-script&#x27;),
+      coffee: require('coffee-script'),
       header: false,
       sourceMap: !!file.sourceMap,
       sourceRoot: false,
@@ -136,10 +129,10 @@
     try {
       data = options.coffee.compile(str, options);
     } catch (err) {
-      return cb(new PluginError(&#x27;gulp-coffee&#x27;, err));
+      return cb(new PluginError('gulp-coffee', err));
     }
 
-    if (data &#x26;&#x26; data.v3SourceMap &#x26;&#x26; file.sourceMap) {
+    if (data &amp;&amp; data.v3SourceMap &amp;&amp; file.sourceMap) {
       applySourceMap(file, data.v3SourceMap);
       file.contents = new Buffer(data.js);
     } else {
@@ -172,15 +165,15 @@
 
   function transform(file, enc, cb) {
 if (file.isNull()) return cb(null, file);
-if (file.isStream()) return cb(new PluginError(&#x27;gulp-coffee&#x27;, &#x27;Streaming not supported&#x27;));
+if (file.isStream()) return cb(new PluginError('gulp-coffee', 'Streaming not supported'));
 
 var data;
-var str = file.contents.<span class="apidocCodeKeywordSpan">toString</span>(&#x27;utf8&#x27;);
+var str = file.contents.<span class="apidocCodeKeywordSpan">toString</span>('utf8');
 var dest = replaceExtension(file.path);
 
 var options = merge({
   bare: false,
-  coffee: require(&#x27;coffee-script&#x27;),
+  coffee: require('coffee-script'),
   header: false,
   sourceMap: !!file.sourceMap,
 ...</pre></li>
@@ -206,15 +199,15 @@ var options = merge({
 
   function transform(file, enc, cb) {
 if (file.isNull()) return cb(null, file);
-if (file.isStream()) return cb(new PluginError(&#x27;gulp-coffee&#x27;, &#x27;Streaming not supported&#x27;));
+if (file.isStream()) return cb(new PluginError('gulp-coffee', 'Streaming not supported'));
 
 var data;
-var str = file.contents.<span class="apidocCodeKeywordSpan">toString</span>(&#x27;utf8&#x27;);
+var str = file.contents.<span class="apidocCodeKeywordSpan">toString</span>('utf8');
 var dest = replaceExtension(file.path);
 
 var options = merge({
   bare: false,
-  coffee: require(&#x27;coffee-script&#x27;),
+  coffee: require('coffee-script'),
   header: false,
   sourceMap: !!file.sourceMap,
 ...</pre></li>
@@ -229,3 +222,4 @@ var options = merge({
     ]
 </div>
 </div>
+</body></html>
