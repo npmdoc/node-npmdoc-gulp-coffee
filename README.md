@@ -1,4 +1,7 @@
-# api documentation for  [gulp-coffee (v2.3.4)](http://github.com/contra/gulp-coffee)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-coffee.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-coffee) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-coffee.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-coffee)
+# npmdoc-gulp-coffee
+
+#### basic api documentation for  [gulp-coffee (v2.3.4)](http://github.com/contra/gulp-coffee)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-coffee.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-coffee) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-coffee.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-coffee)
+
 #### Compile CoffeeScript files
 
 [![NPM](https://nodei.co/npm/gulp-coffee.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/gulp-coffee)
@@ -70,7 +73,8 @@
     "scripts": {
         "test": "mocha"
     },
-    "version": "2.3.4"
+    "version": "2.3.4",
+    "bin": {}
 }
 ```
 
